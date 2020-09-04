@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ESIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EsiBigData">
+          <Key>
+            <PropertyRef Name="EsiBigDataId" />
+          </Key>
+          <Property Name="EsiBigDataId" Type="decimal" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EsiBigDataValue" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EsiCategories">
+          <Key>
+            <PropertyRef Name="CateID" />
+          </Key>
+          <Property Name="CateID" Type="decimal" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CateName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CateLabel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CateState" Type="int" Nullable="false" />
+          <Property Name="CateOrder" Type="int" Nullable="false" />
+          <Property Name="CateParent" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CateDesc" Type="nvarchar(max)" />
+          <Property Name="CateTname" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="EsiFields">
+          <Key>
+            <PropertyRef Name="FieldID" />
+          </Key>
+          <Property Name="FieldID" Type="decimal" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FieldCateID" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="FieldLabel" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FieldOrder" Type="int" Nullable="false" />
+          <Property Name="FieldAutoDescState" Type="int" Nullable="false" />
+          <Property Name="FieldPerfix" Type="nvarchar" MaxLength="50" />
+          <Property Name="FieldPostfix" Type="nvarchar" MaxLength="50" />
+          <Property Name="FieldType" Type="int" Nullable="false" />
+          <Property Name="FieldHis" Type="int" Nullable="false" />
+          <Property Name="FieldAllowNull" Type="int" Nullable="false" />
+          <Property Name="FieldState" Type="int" Nullable="false" />
+          <Property Name="FieldDesc" Type="nvarchar(max)" />
+          <Property Name="FieldSize" Type="int" />
+          <Property Name="FieldLink" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="EsiItems">
+          <Key>
+            <PropertyRef Name="EsiObjId" />
+            <PropertyRef Name="EsiFieldId" />
+          </Key>
+          <Property Name="EsiObjId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="EsiFieldId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="EsiStrVal" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="EsiMetaTypes">
+          <Key>
+            <PropertyRef Name="EsiMetaTypeId" />
+          </Key>
+          <Property Name="EsiMetaTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EsiMetaTypeName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsiMetaTypeState" Type="int" Nullable="false" />
+          <Property Name="EsiMetaTypeDesc" Type="nvarchar(max)" />
+          <Property Name="EsiMetaTypeOrder" Type="int" Nullable="false" />
+          <Property Name="EsiMetaTypelabel" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="EsiProducts">
+          <Key>
+            <PropertyRef Name="EsiProductId" />
+          </Key>
+          <Property Name="EsiProductId" Type="decimal" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EsiProductCateId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EsiSynons">
+          <Key>
+            <PropertyRef Name="EsiSynonId" />
+          </Key>
+          <Property Name="EsiSynonId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="EsiSynonName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EsiSynonCateId" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_EsiFields_EsiCategories">
+          <End Role="EsiCategories" Type="Self.EsiCategories" Multiplicity="1" />
+          <End Role="EsiFields" Type="Self.EsiFields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsiCategories">
+              <PropertyRef Name="CateID" />
+            </Principal>
+            <Dependent Role="EsiFields">
+              <PropertyRef Name="FieldCateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EsiItems_EsiFields">
+          <End Role="EsiFields" Type="Self.EsiFields" Multiplicity="1" />
+          <End Role="EsiItems" Type="Self.EsiItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsiFields">
+              <PropertyRef Name="FieldID" />
+            </Principal>
+            <Dependent Role="EsiItems">
+              <PropertyRef Name="EsiFieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EsiItems_EsiProducts">
+          <End Role="EsiProducts" Type="Self.EsiProducts" Multiplicity="1" />
+          <End Role="EsiItems" Type="Self.EsiItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsiProducts">
+              <PropertyRef Name="EsiProductId" />
+            </Principal>
+            <Dependent Role="EsiItems">
+              <PropertyRef Name="EsiObjId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EsiProducts_EsiCategories">
+          <End Role="EsiCategories" Type="Self.EsiCategories" Multiplicity="1" />
+          <End Role="EsiProducts" Type="Self.EsiProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsiCategories">
+              <PropertyRef Name="CateID" />
+            </Principal>
+            <Dependent Role="EsiProducts">
+              <PropertyRef Name="EsiProductCateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EsiSynons_EsiCategories">
+          <End Role="EsiCategories" Type="Self.EsiCategories" Multiplicity="1" />
+          <End Role="EsiSynons" Type="Self.EsiSynons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsiCategories">
+              <PropertyRef Name="CateID" />
+            </Principal>
+            <Dependent Role="EsiSynons">
+              <PropertyRef Name="EsiSynonCateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fields_EsiMetaTypes">
+          <End Role="EsiMetaTypes" Type="Self.EsiMetaTypes" Multiplicity="1" />
+          <End Role="EsiFields" Type="Self.EsiFields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsiMetaTypes">
+              <PropertyRef Name="EsiMetaTypeId" />
+            </Principal>
+            <Dependent Role="EsiFields">
+              <PropertyRef Name="FieldType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ESIModelStoreContainer">
+          <EntitySet Name="EsiBigData" EntityType="Self.EsiBigData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EsiCategories" EntityType="Self.EsiCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EsiFields" EntityType="Self.EsiFields" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EsiItems" EntityType="Self.EsiItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EsiMetaTypes" EntityType="Self.EsiMetaTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EsiProducts" EntityType="Self.EsiProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EsiSynons" EntityType="Self.EsiSynons" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_EsiFields_EsiCategories" Association="Self.FK_EsiFields_EsiCategories">
+            <End Role="EsiCategories" EntitySet="EsiCategories" />
+            <End Role="EsiFields" EntitySet="EsiFields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EsiItems_EsiFields" Association="Self.FK_EsiItems_EsiFields">
+            <End Role="EsiFields" EntitySet="EsiFields" />
+            <End Role="EsiItems" EntitySet="EsiItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EsiItems_EsiProducts" Association="Self.FK_EsiItems_EsiProducts">
+            <End Role="EsiProducts" EntitySet="EsiProducts" />
+            <End Role="EsiItems" EntitySet="EsiItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EsiProducts_EsiCategories" Association="Self.FK_EsiProducts_EsiCategories">
+            <End Role="EsiCategories" EntitySet="EsiCategories" />
+            <End Role="EsiProducts" EntitySet="EsiProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EsiSynons_EsiCategories" Association="Self.FK_EsiSynons_EsiCategories">
+            <End Role="EsiCategories" EntitySet="EsiCategories" />
+            <End Role="EsiSynons" EntitySet="EsiSynons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fields_EsiMetaTypes" Association="Self.FK_Fields_EsiMetaTypes">
+            <End Role="EsiMetaTypes" EntitySet="EsiMetaTypes" />
+            <End Role="EsiFields" EntitySet="EsiFields" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ESIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EsiBigData">
+          <Key>
+            <PropertyRef Name="EsiBigDataId" />
+          </Key>
+          <Property Name="EsiBigDataId" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EsiBigDataValue" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EsiCategory">
+          <Key>
+            <PropertyRef Name="CateID" />
+          </Key>
+          <Property Name="CateID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CateLabel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CateState" Type="Int32" Nullable="false" />
+          <Property Name="CateOrder" Type="Int32" Nullable="false" />
+          <Property Name="CateParent" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CateDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CateTname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EsiFields" Relationship="Self.FK_EsiFields_EsiCategories" FromRole="EsiCategories" ToRole="EsiFields" />
+          <NavigationProperty Name="EsiProducts" Relationship="Self.FK_EsiProducts_EsiCategories" FromRole="EsiCategories" ToRole="EsiProducts" />
+          <NavigationProperty Name="EsiSynons" Relationship="Self.FK_EsiSynons_EsiCategories" FromRole="EsiCategories" ToRole="EsiSynons" />
+        </EntityType>
+        <EntityType Name="EsiField">
+          <Key>
+            <PropertyRef Name="FieldID" />
+          </Key>
+          <Property Name="FieldID" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FieldCateID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="FieldLabel" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FieldOrder" Type="Int32" Nullable="false" />
+          <Property Name="FieldAutoDescState" Type="Int32" Nullable="false" />
+          <Property Name="FieldPerfix" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FieldPostfix" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FieldType" Type="Int32" Nullable="false" />
+          <Property Name="FieldHis" Type="Int32" Nullable="false" />
+          <Property Name="FieldAllowNull" Type="Int32" Nullable="false" />
+          <Property Name="FieldState" Type="Int32" Nullable="false" />
+          <Property Name="FieldDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FieldSize" Type="Int32" />
+          <Property Name="FieldLink" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="EsiCategory" Relationship="Self.FK_EsiFields_EsiCategories" FromRole="EsiFields" ToRole="EsiCategories" />
+          <NavigationProperty Name="EsiItems" Relationship="Self.FK_EsiItems_EsiFields" FromRole="EsiFields" ToRole="EsiItems" />
+          <NavigationProperty Name="EsiMetaType" Relationship="Self.FK_Fields_EsiMetaTypes" FromRole="EsiFields" ToRole="EsiMetaTypes" />
+        </EntityType>
+        <EntityType Name="EsiItem">
+          <Key>
+            <PropertyRef Name="EsiObjId" />
+            <PropertyRef Name="EsiFieldId" />
+          </Key>
+          <Property Name="EsiObjId" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="EsiFieldId" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="EsiStrVal" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EsiField" Relationship="Self.FK_EsiItems_EsiFields" FromRole="EsiItems" ToRole="EsiFields" />
+          <NavigationProperty Name="EsiProduct" Relationship="Self.FK_EsiItems_EsiProducts" FromRole="EsiItems" ToRole="EsiProducts" />
+        </EntityType>
+        <EntityType Name="EsiMetaType">
+          <Key>
+            <PropertyRef Name="EsiMetaTypeId" />
+          </Key>
+          <Property Name="EsiMetaTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EsiMetaTypeName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EsiMetaTypeState" Type="Int32" Nullable="false" />
+          <Property Name="EsiMetaTypeDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EsiMetaTypeOrder" Type="Int32" Nullable="false" />
+          <Property Name="EsiMetaTypelabel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EsiFields" Relationship="Self.FK_Fields_EsiMetaTypes" FromRole="EsiMetaTypes" ToRole="EsiFields" />
+        </EntityType>
+        <EntityType Name="EsiProduct">
+          <Key>
+            <PropertyRef Name="EsiProductId" />
+          </Key>
+          <Property Name="EsiProductId" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EsiProductCateId" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="EsiCategory" Relationship="Self.FK_EsiProducts_EsiCategories" FromRole="EsiProducts" ToRole="EsiCategories" />
+          <NavigationProperty Name="EsiItems" Relationship="Self.FK_EsiItems_EsiProducts" FromRole="EsiProducts" ToRole="EsiItems" />
+        </EntityType>
+        <EntityType Name="EsiSynon">
+          <Key>
+            <PropertyRef Name="EsiSynonId" />
+          </Key>
+          <Property Name="EsiSynonId" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="EsiSynonName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EsiSynonCateId" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="EsiCategory" Relationship="Self.FK_EsiSynons_EsiCategories" FromRole="EsiSynons" ToRole="EsiCategories" />
+        </EntityType>
+        <Association Name="FK_EsiFields_EsiCategories">
+          <End Role="EsiCategories" Type="Self.EsiCategory" Multiplicity="1" />
+          <End Role="EsiFields" Type="Self.EsiField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsiCategories">
+              <PropertyRef Name="CateID" />
+            </Principal>
+            <Dependent Role="EsiFields">
+              <PropertyRef Name="FieldCateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EsiProducts_EsiCategories">
+          <End Role="EsiCategories" Type="Self.EsiCategory" Multiplicity="1" />
+          <End Role="EsiProducts" Type="Self.EsiProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsiCategories">
+              <PropertyRef Name="CateID" />
+            </Principal>
+            <Dependent Role="EsiProducts">
+              <PropertyRef Name="EsiProductCateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EsiSynons_EsiCategories">
+          <End Role="EsiCategories" Type="Self.EsiCategory" Multiplicity="1" />
+          <End Role="EsiSynons" Type="Self.EsiSynon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsiCategories">
+              <PropertyRef Name="CateID" />
+            </Principal>
+            <Dependent Role="EsiSynons">
+              <PropertyRef Name="EsiSynonCateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EsiItems_EsiFields">
+          <End Role="EsiFields" Type="Self.EsiField" Multiplicity="1" />
+          <End Role="EsiItems" Type="Self.EsiItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsiFields">
+              <PropertyRef Name="FieldID" />
+            </Principal>
+            <Dependent Role="EsiItems">
+              <PropertyRef Name="EsiFieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fields_EsiMetaTypes">
+          <End Role="EsiMetaTypes" Type="Self.EsiMetaType" Multiplicity="1" />
+          <End Role="EsiFields" Type="Self.EsiField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsiMetaTypes">
+              <PropertyRef Name="EsiMetaTypeId" />
+            </Principal>
+            <Dependent Role="EsiFields">
+              <PropertyRef Name="FieldType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EsiItems_EsiProducts">
+          <End Role="EsiProducts" Type="Self.EsiProduct" Multiplicity="1" />
+          <End Role="EsiItems" Type="Self.EsiItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EsiProducts">
+              <PropertyRef Name="EsiProductId" />
+            </Principal>
+            <Dependent Role="EsiItems">
+              <PropertyRef Name="EsiObjId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EME" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EsiBigDatas" EntityType="Self.EsiBigData" />
+          <EntitySet Name="EsiCategories" EntityType="Self.EsiCategory" />
+          <EntitySet Name="EsiFields" EntityType="Self.EsiField" />
+          <EntitySet Name="EsiItems" EntityType="Self.EsiItem" />
+          <EntitySet Name="EsiMetaTypes" EntityType="Self.EsiMetaType" />
+          <EntitySet Name="EsiProducts" EntityType="Self.EsiProduct" />
+          <EntitySet Name="EsiSynons" EntityType="Self.EsiSynon" />
+          <AssociationSet Name="FK_EsiFields_EsiCategories" Association="Self.FK_EsiFields_EsiCategories">
+            <End Role="EsiCategories" EntitySet="EsiCategories" />
+            <End Role="EsiFields" EntitySet="EsiFields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EsiProducts_EsiCategories" Association="Self.FK_EsiProducts_EsiCategories">
+            <End Role="EsiCategories" EntitySet="EsiCategories" />
+            <End Role="EsiProducts" EntitySet="EsiProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EsiSynons_EsiCategories" Association="Self.FK_EsiSynons_EsiCategories">
+            <End Role="EsiCategories" EntitySet="EsiCategories" />
+            <End Role="EsiSynons" EntitySet="EsiSynons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EsiItems_EsiFields" Association="Self.FK_EsiItems_EsiFields">
+            <End Role="EsiFields" EntitySet="EsiFields" />
+            <End Role="EsiItems" EntitySet="EsiItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fields_EsiMetaTypes" Association="Self.FK_Fields_EsiMetaTypes">
+            <End Role="EsiMetaTypes" EntitySet="EsiMetaTypes" />
+            <End Role="EsiFields" EntitySet="EsiFields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EsiItems_EsiProducts" Association="Self.FK_EsiItems_EsiProducts">
+            <End Role="EsiProducts" EntitySet="EsiProducts" />
+            <End Role="EsiItems" EntitySet="EsiItems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ESIModelStoreContainer" CdmEntityContainer="EME">
+          <EntitySetMapping Name="EsiBigDatas">
+            <EntityTypeMapping TypeName="ESIModel.EsiBigData">
+              <MappingFragment StoreEntitySet="EsiBigData">
+                <ScalarProperty Name="EsiBigDataId" ColumnName="EsiBigDataId" />
+                <ScalarProperty Name="EsiBigDataValue" ColumnName="EsiBigDataValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EsiCategories">
+            <EntityTypeMapping TypeName="ESIModel.EsiCategory">
+              <MappingFragment StoreEntitySet="EsiCategories">
+                <ScalarProperty Name="CateID" ColumnName="CateID" />
+                <ScalarProperty Name="CateName" ColumnName="CateName" />
+                <ScalarProperty Name="CateLabel" ColumnName="CateLabel" />
+                <ScalarProperty Name="CateState" ColumnName="CateState" />
+                <ScalarProperty Name="CateOrder" ColumnName="CateOrder" />
+                <ScalarProperty Name="CateParent" ColumnName="CateParent" />
+                <ScalarProperty Name="CateDesc" ColumnName="CateDesc" />
+                <ScalarProperty Name="CateTname" ColumnName="CateTname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EsiFields">
+            <EntityTypeMapping TypeName="ESIModel.EsiField">
+              <MappingFragment StoreEntitySet="EsiFields">
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+                <ScalarProperty Name="FieldCateID" ColumnName="FieldCateID" />
+                <ScalarProperty Name="FieldLabel" ColumnName="FieldLabel" />
+                <ScalarProperty Name="FieldOrder" ColumnName="FieldOrder" />
+                <ScalarProperty Name="FieldAutoDescState" ColumnName="FieldAutoDescState" />
+                <ScalarProperty Name="FieldPerfix" ColumnName="FieldPerfix" />
+                <ScalarProperty Name="FieldPostfix" ColumnName="FieldPostfix" />
+                <ScalarProperty Name="FieldType" ColumnName="FieldType" />
+                <ScalarProperty Name="FieldHis" ColumnName="FieldHis" />
+                <ScalarProperty Name="FieldAllowNull" ColumnName="FieldAllowNull" />
+                <ScalarProperty Name="FieldState" ColumnName="FieldState" />
+                <ScalarProperty Name="FieldDesc" ColumnName="FieldDesc" />
+                <ScalarProperty Name="FieldSize" ColumnName="FieldSize" />
+                <ScalarProperty Name="FieldLink" ColumnName="FieldLink" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EsiItems">
+            <EntityTypeMapping TypeName="ESIModel.EsiItem">
+              <MappingFragment StoreEntitySet="EsiItems">
+                <ScalarProperty Name="EsiObjId" ColumnName="EsiObjId" />
+                <ScalarProperty Name="EsiFieldId" ColumnName="EsiFieldId" />
+                <ScalarProperty Name="EsiStrVal" ColumnName="EsiStrVal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EsiMetaTypes">
+            <EntityTypeMapping TypeName="ESIModel.EsiMetaType">
+              <MappingFragment StoreEntitySet="EsiMetaTypes">
+                <ScalarProperty Name="EsiMetaTypeId" ColumnName="EsiMetaTypeId" />
+                <ScalarProperty Name="EsiMetaTypeName" ColumnName="EsiMetaTypeName" />
+                <ScalarProperty Name="EsiMetaTypeState" ColumnName="EsiMetaTypeState" />
+                <ScalarProperty Name="EsiMetaTypeDesc" ColumnName="EsiMetaTypeDesc" />
+                <ScalarProperty Name="EsiMetaTypeOrder" ColumnName="EsiMetaTypeOrder" />
+                <ScalarProperty Name="EsiMetaTypelabel" ColumnName="EsiMetaTypelabel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EsiProducts">
+            <EntityTypeMapping TypeName="ESIModel.EsiProduct">
+              <MappingFragment StoreEntitySet="EsiProducts">
+                <ScalarProperty Name="EsiProductId" ColumnName="EsiProductId" />
+                <ScalarProperty Name="EsiProductCateId" ColumnName="EsiProductCateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EsiSynons">
+            <EntityTypeMapping TypeName="ESIModel.EsiSynon">
+              <MappingFragment StoreEntitySet="EsiSynons">
+                <ScalarProperty Name="EsiSynonId" ColumnName="EsiSynonId" />
+                <ScalarProperty Name="EsiSynonName" ColumnName="EsiSynonName" />
+                <ScalarProperty Name="EsiSynonCateId" ColumnName="EsiSynonCateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

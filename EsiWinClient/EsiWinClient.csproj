@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{88F941FC-49D9-4B8A-BA1D-D94683F912A6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>EsiWinClient</RootNamespace>
+    <AssemblyName>EsiWinClient</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http">
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DTH.cs" />
+    <Compile Include="EsiColor.cs" />
+    <Compile Include="Form Models\FrmItemMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form Models\FrmItemMode.Designer.cs">
+      <DependentUpon>FrmItemMode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEsiMiniBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEsiMiniBase.Designer.cs">
+      <DependentUpon>FrmEsiMiniBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEsiBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEsiBase.Designer.cs">
+      <DependentUpon>FrmEsiBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGridTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGridTest.Designer.cs">
+      <DependentUpon>FrmGridTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmItemMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmItemMode.Designer.cs">
+      <DependentUpon>FrmItemMode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenPub.cs" />
+    <Compile Include="MetaManager\FrmCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MetaManager\FrmCategory.Designer.cs">
+      <DependentUpon>FrmCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MetaManager\FrmCateNew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MetaManager\FrmCateNew.Designer.cs">
+      <DependentUpon>FrmCateNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MetaManager\ucCateNew.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MetaManager\ucCateNew.Designer.cs">
+      <DependentUpon>ucCateNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModelClass.cs" />
+    <Compile Include="PGMortezazadeh.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PGMortezazadeh.Designer.cs">
+      <DependentUpon>PGMortezazadeh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UCD\UCD.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCD\UCD.Designer.cs">
+      <DependentUpon>UCD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCD\UCI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCD\UCI.Designer.cs">
+      <DependentUpon>UCI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCD\UCT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCD\UCT.Designer.cs">
+      <DependentUpon>UCT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucGridView.Designer.cs">
+      <DependentUpon>ucGridView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl1.Designer.cs">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Form Models\FrmItemMode.resx">
+      <DependentUpon>FrmItemMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEsiMiniBase.resx">
+      <DependentUpon>FrmEsiMiniBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEsiBase.resx">
+      <DependentUpon>FrmEsiBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGridTest.resx">
+      <DependentUpon>FrmGridTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmItemMode.resx">
+      <DependentUpon>FrmItemMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaManager\FrmCategory.resx">
+      <DependentUpon>FrmCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaManager\FrmCateNew.resx">
+      <DependentUpon>FrmCateNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaManager\ucCateNew.resx">
+      <DependentUpon>ucCateNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PGMortezazadeh.resx">
+      <DependentUpon>PGMortezazadeh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="UCD\UCD.resx">
+      <DependentUpon>UCD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCD\UCI.resx">
+      <DependentUpon>UCI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCD\UCT.resx">
+      <DependentUpon>UCT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucGridView.resx">
+      <DependentUpon>ucGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl1.resx">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\MagicManager.MagicMeta+EsiCategory.datasource" />
+    <None Include="Properties\DataSources\MagicManager.MagicMeta+EsiField.datasource" />
+    <None Include="Properties\DataSources\MagicManager.MagicMeta+EsiMetaType.datasource" />
+    <None Include="Properties\DataSources\MortezazadehDCM.EsiToCategory.datasource" />
+    <None Include="Properties\DataSources\MortezazadehDCM.EsiToField.datasource" />
+    <None Include="Properties\DataSources\MortezazadehDCM.EsiToMetaType.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MEsiIcon2017.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MagicManager\MagicManager.csproj">
+      <Project>{6e5e583c-9a3a-42ed-bda0-2b007004802c}</Project>
+      <Name>MagicManager</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MetaManager\Bak\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
